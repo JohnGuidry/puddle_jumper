@@ -211,7 +211,11 @@ while (1) {
 	}
 	if ($mining ne $current_coin) {
 		if (defined $PID) {
+			$PID = $PID + 1;
 			kill 1, $PID;
+			print "Process killed >> $PID .\n";
+			sleep 2;
+			system(clear);
 		}
 		$PID = fork ();
 		if (! $PID) {
@@ -259,6 +263,10 @@ sub test_coins {
 			exec ($cmd);
 		}
 		sleep $Options->{check_timer} * 60;
+		$PID = $PID + 1;
 		kill 1, $PID;
+		print "Killed $PID. \n";
+		sleep 10;
+		system(clear);
 	}
 }
